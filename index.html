@@ -1,90 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KRYOXI</title>
-    <link rel="stylesheet" href="/main.css">
-    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.2.0/css/all.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KRYOXI</title>
+  <link rel="icon" type="image/png" href="images/logo.png"/>
+  <script>
+    function openSmartLinkAd() {
+      window.open('https://onsetcab.com/qjfqpapf?key=d1b5904a3aa05cbc40a1d041892eb626', '_blank');
+    }
+  </script>
+  <script src="https://onsetcab.com/de/bf/ca/debfca924e065fb8a95cd079fa79f8e6.js"></script>
+  <style>
+    :root{--bg:#000000;--text:#ffffff;--gray:#aaaaaa;--darkgray:#111111;--accent:#dddddd;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden;}
+    body.modal-open{overflow:hidden;}
+    body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,rgba(255,255,255,0.02) 1px,transparent 2px);pointer-events:none;z-index:9999;animation:scan 5s linear infinite;}
+    @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100px)}}
+
+    nav{position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,0.9);border-bottom:1px solid var(--accent);padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;z-index:1000;}
+    .logo{font-size:2.2rem;letter-spacing:6px;font-weight:bold;animation:pulseGlow 2.5s ease-in-out infinite alternate;}
+    .logo span{color:var(--accent);}
+    @keyframes pulseGlow{from{text-shadow:0 0 10px var(--accent),0 0 20px #fff,0 0 30px var(--accent);transform:scale(1)}to{text-shadow:0 0 30px var(--accent),0 0 60px #fff,0 0 90px var(--accent);transform:scale(1.05)}}
+
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%;}
+    .hero h1{font-size:clamp(4rem,12vw,8rem);letter-spacing:15px;animation:glow 3s ease-in-out infinite alternate;}
+    @keyframes glow{from{text-shadow:0 0 30px var(--accent)}to{text-shadow:0 0 80px #fff,0 0 120px var(--accent)}}
+    .tagline{font-size:1.6rem;color:var(--gray);margin:1.5rem 0 3rem;letter-spacing:4px;}
+
+    /* scroll reveal */
+    .reveal{opacity:0;transform:translateY(50px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+
+    .library{padding:100px 5% 150px;}
+    .library h2{text-align:center;font-size:3rem;margin-bottom:60px;color:var(--accent);}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px;max-width:1400px;margin:0 auto;}
+
+    .card{background:var(--darkgray);border:1px solid var(--accent);border-radius:8px;overflow:hidden;transition:all 0.4s ease;cursor:pointer;opacity:0;transform:translateY(40px);}
+    .card.visible{opacity:1;transform:translateY(0);}
+    .card:hover{transform:translateY(-12px);box-shadow:0 20px 60px rgba(255,255,255,0.15);border-color:#fff;}
+    .card img{width:100%;height:180px;object-fit:cover;transition:transform 0.4s,filter 0.5s;}
+    .card:hover img{transform:scale(1.05);filter:brightness(1.15);}
+    .card h3{padding:1.2rem 1rem 0.5rem;font-size:1.2rem;text-align:center;text-transform:capitalize;}
+
+    /* modal */
+    #game-modal{position:fixed;inset:0;background:rgba(0,0,0,0.98);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;}
+    #game-modal.active{display:flex;}
+    .modal-header{position:absolute;top:15px;right:15px;display:flex;gap:15px;z-index:10;}
+    .modal-btn{background:rgba(255,255,255,0.1);border:1px solid var(--accent);color:var(--accent);width:44px;height:44px;border-radius:50%;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+    .modal-btn:hover{background:var(--accent);color:#000;transform:scale(1.1);}
+    .modal-wrapper{width:95vw;height:90vh;max-width:1800px;background:#000;border:2px solid var(--accent);overflow:hidden;position:relative;box-shadow:0 0 80px rgba(255,255,255,0.25);}
+    iframe{width:100%;height:100%;border:none;}
+
+    footer{text-align:center;padding:3rem;border-top:1px solid var(--accent);color:var(--gray);font-size:0.95rem;}
+    #particles{position:fixed;inset:0;z-index:-1;opacity:0.12;pointer-events:none;}
+    #proxy-launcher{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:999;background:rgba(0,0,0,0.7);border:1px solid var(--accent);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 20px rgba(221,221,221,0.25);transition:all 0.3s ease;}
+    #proxy-launcher:hover{transform:translateX(-50%) scale(1.12);box-shadow:0 0 35px rgba(221,221,221,0.4);background:rgba(20,20,20,0.85);}
+    #proxy-launcher span{font-size:2.8rem;color:var(--accent);filter:grayscale(100%) brightness(1.3);}
+  </style>
 </head>
 <body>
-    <nav>
-        <img src="images/logo.png" alt="logo">
-        <h1>KRYOXI</h1>
-    </nav>
 
-    <div class="featured">
-        <h1>Popular:</h1>
-        <div class="column">
-          <a href="games/bob-the-robber-2/">
-            <img src="images/bob-the-robber-2.png">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-          </a>
-          <a href="games/vex7/">
-            <img src="images/vex7.jpeg">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-          </a>
-        </div>
-        <div class="row">
-          <a href="games/vex6">
-            <img src="images/vex6.jpeg">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-          </a>
-        </div>
-        <div class="row">
-          <a href="games/drive-mad/">
-            <img src="images/drive-mad.jpg">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-            </a>
-        </div>
-        <div class="column">
-          <a href="games/moto-x3m/">
-            <img src="images/moto-x3m.jpg">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-          </a>
-          <a href="games/retro-bowl/">
-            <img src="images/retro-bowl.jpg">
-            <div class="play-button">
-                <i class="fa-solid fa-play"></i>
-            </div>
-          </a>
-        </div>
-        </div>
+  <script src="https://onsetcab.com/01/2f/ce/012fceecf6e9e3a45464326acd1fad19.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+    if (location.pathname !== '/home') history.replaceState(null, '', '/home');
+  </script>
+
+  <nav><div class="logo">KRYO<span>XI</span></div></nav>
+
+  <section class="hero">
+    <h1 class="reveal">KRYOXI</h1>
+    <p class="tagline reveal">CORE UNLOCKED • ALL NODES ACTIVE</p>
+  </section>
+
+  <section class="library">
+    <h2 class="reveal">GAME NODES</h2>
+    <div class="grid">
+
+      <div class="card" data-game="1v1lol">
+        <img src="images/mc.png" alt="1v1.LOL">
+        <h3>1v1.LOL</h3>
+      </div>
+
+      <div class="card" data-game="2048">
+        <img src="images/mc.png" alt="2048">
+        <h3>2048</h3>
+      </div>
+
+      <div class="card" data-game="bob-the-robber-2">
+        <img src="images/bob-the-robber-2.png" alt="Bob the Robber 2">
+        <h3>Bob the Robber 2</h3>
+      </div>
+
+      <div class="card" data-game="drive-mad">
+        <img src="images/drive-mad.jpg" alt="Drive Mad">
+        <h3>Drive Mad</h3>
+      </div>
+
+      <div class="card" data-game="moto-x3m">
+        <img src="images/moto-x3m.jpg" alt="Moto X3M">
+        <h3>Moto X3M</h3>
+      </div>
+
+      <div class="card" data-game="motox3m2">
+        <img src="images/motox3m2.jpg" alt="Moto X3M 2">
+        <h3>Moto X3M 2</h3>
+      </div>
+
+      <div class="card" data-game="retro-bowl">
+        <img src="images/retro-bowl.jpg" alt="Retro Bowl">
+        <h3>Retro Bowl</h3>
+      </div>
+
+      <div class="card" data-game="slope">
+        <img src="images/slope.jpg" alt="Slope">
+        <h3>Slope</h3>
+      </div>
+
+      <div class="card" data-game="vex3">
+        <img src="images/vex3.jpg" alt="Vex 3">
+        <h3>Vex 3</h3>
+      </div>
+
+      <div class="card" data-game="vex4">
+        <img src="images/vex4.jpg" alt="Vex 4">
+        <h3>Vex 4</h3>
+      </div>
+
+      <div class="card" data-game="vex5">
+        <img src="images/vex5.jpg" alt="Vex 5">
+        <h3>Vex 5</h3>
+      </div>
+
+      <div class="card" data-game="vex6">
+        <img src="images/vex6.jpeg" alt="Vex 6">
+        <h3>Vex 6</h3>
+      </div>
+
+      <div class="card" data-game="vex7">
+        <img src="images/vex7.jpeg" alt="Vex 7">
+        <h3>Vex 7</h3>
+      </div>
+
     </div>
+  </section>
 
-    <div class="content">
+  <!-- Native Banner Ad -->
+  <script async="async" data-cfasync="false" src="https://onsetcab.com/be578f644be899ed6a5babb726571f8f/invoke.js"></script>
+  <div id="container-be578f644be899ed6a5babb726571f8f"></div>
 
-    <hr>
-
-    <div class="search">
-        <input type="text" placeholder="Search..." oninput="">
-        <button><i class="fas fa-search"></i></button>
+  <div id="game-modal">
+    <div class="modal-header">
+      <button class="modal-btn" id="close-modal">✕</button>
+      <button class="modal-btn" id="toggle-fullscreen">⛶</button>
     </div>
+    <div class="modal-wrapper">
+      <iframe id="game-iframe" allowfullscreen allow="fullscreen"></iframe>
+    </div>
+  </div>
 
-    <div id="games">
-        <a href="games/bob-the-robber-2/"><img src="images/bob-the-robber-2.png" alt="bob the robber 2"></a>
-        <a href="games/vex7/"><img src="images/vex7.jpeg" alt="vex 7"></a>
-        <a href="games/vex6/"><img src="images/vex6.jpeg" alt="vex 6"></a>
-        <a href="games/"><img src="images/mc.png" alt="minecraft"></a>
-        <a href="games/moto-x3m/"><img src="images/moto-x3m.jpg" alt="moto x3m"></a>
-        <a href="games/retro-bowl/"><img src="images/retro-bowl.jpg" alt="retrobowl"></a>
-        <a href="games/drive-mad/"><img src="images/drive-mad.jpg" alt="drive mad"></a>
-        <a href="games/slope/"><img src="images/slope.jpg" alt="slope"></a>
-        <a href="games/motox3m2/"><img src="images/motox3m2.jpg" alt="moto x3m2"></a>
-    </div>
-    </div>
+  <div id="proxy-launcher"><span>🌐</span></div>
+  <footer>KRYOXI • ALL CORE PROTOCOLS ACTIVE • 2026</footer>
+  <canvas id="particles"></canvas>
+
+  <script>
+    // ── GAME URLS — loads from games/ folder on your host ──
+    const gameUrls = {
+      "1v1lol":          "games/1v1lol/index.html",
+      "2048":            "games/2048/index.html",
+      "bob-the-robber-2":"games/bob-the-robber-2/index.html",
+      "drive-mad":       "games/drive-mad/index.html",
+      "moto-x3m":        "games/moto-x3m/index.html",
+      "motox3m2":        "games/motox3m2/index.html",
+      "retro-bowl":      "games/retro-bowl/index.html",
+      "slope":           "games/slope/index.html",
+      "vex3":            "games/vex3/index.html",
+      "vex4":            "games/vex4/index.html",
+      "vex5":            "games/vex5/index.html",
+      "vex6":            "games/vex6/index.html",
+      "vex7":            "games/vex7/index.html",
+    };
+
+    // ── MODAL ──
+    const gameModal   = document.getElementById('game-modal');
+    const gameIframe  = document.getElementById('game-iframe');
+    const closeGame   = document.getElementById('close-modal');
+    const fsBtn       = document.getElementById('toggle-fullscreen');
+    const gameWrapper = gameModal.querySelector('.modal-wrapper');
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        openSmartLinkAd();
+        const url = gameUrls[card.getAttribute('data-game')] || 'about:blank';
+        gameIframe.src = url;
+        gameModal.classList.add('active');
+        document.body.classList.add('modal-open');
+      });
+    });
+
+    closeGame.addEventListener('click', () => {
+      openSmartLinkAd();
+      gameModal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      gameIframe.src = '';
+    });
+
+    fsBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) gameWrapper.requestFullscreen().catch(() => {});
+      else document.exitFullscreen();
+    });
+
+    document.getElementById('proxy-launcher').addEventListener('click', () => {
+      openSmartLinkAd();
+      window.location.href = 'quiz.html';
+    });
+
+    // ── SCROLL REVEAL ANIMATION ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // Observe hero elements
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Staggered card animation
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+            entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          }, i * 80);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
+
+    // ── PARTICLES ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let pts = [];
+    class P {
+      constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*1.8+0.4; this.sx=Math.random()*0.4-0.2; this.sy=Math.random()*0.4-0.2; }
+      update(){ this.x+=this.sx; this.y+=this.sy; if(this.x<0||this.x>canvas.width)this.sx*=-1; if(this.y<0||this.y>canvas.height)this.sy*=-1; }
+      draw(){ ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+    }
+    function init(){ pts=[]; for(let i=0;i<100;i++) pts.push(new P()); }
+    function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); pts.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+    window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); });
+    init(); animate();
+  </script>
 </body>
 </html>
-
-<script src="script.js"></script>
