@@ -185,7 +185,15 @@
       "vex5":            "games/vex5/index.html",
       "vex6":            "games/vex6/index.html",
       "vex7":            "games/vex7/index.html",
-    };;
+    };
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
     }, { threshold: 0.1 });
 
     // Observe hero elements
