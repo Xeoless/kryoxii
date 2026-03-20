@@ -4,229 +4,90 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KRYOXI</title>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8073405405530158"
-     crossorigin="anonymous"></script>
-
+  <link rel="icon" type="image/png" href="images/logo.png"/>
+  <script>
+    function openSmartLinkAd() {
+      window.open('https://onsetcab.com/pfi04829kf?key=61e561d1d8ffaba93fefd0b3793d0fdc', '_blank');
+    }
+  </script>
+  <!-- Social Bar -->
+  <script src="https://onsetcab.com/1d/4d/3c/1d4d3ca2a7e5dc5a262fe43e5b6cc5cc.js"></script>
   <style>
-    :root {
-      --bg: #000000;
-      --text: #ffffff;
-      --gray: #aaaaaa;
-      --darkgray: #111111;
-      --accent: #dddddd;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Courier New', monospace;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-    body.modal-open { overflow: hidden; }
+    :root{--bg:#000000;--text:#ffffff;--gray:#aaaaaa;--darkgray:#111111;--accent:#dddddd;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden;}
+    body.modal-open{overflow:hidden;}
+    body::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,rgba(255,255,255,0.02) 1px,transparent 2px);pointer-events:none;z-index:9999;animation:scan 5s linear infinite;}
+    @keyframes scan{0%{transform:translateY(0)}100%{transform:translateY(100px)}}
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(to bottom, transparent 0px, rgba(255,255,255,0.02) 1px, transparent 2px);
-      pointer-events: none;
-      z-index: 9999;
-      animation: scan 5s linear infinite;
-    }
-    @keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(100px); } }
+    nav{position:fixed;top:0;left:0;right:0;background:rgba(0,0,0,0.9);border-bottom:1px solid var(--accent);padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;z-index:1000;}
+    .logo{font-size:2.2rem;letter-spacing:6px;font-weight:bold;animation:pulseGlow 2.5s ease-in-out infinite alternate;}
+    .logo span{color:var(--accent);}
+    @keyframes pulseGlow{from{text-shadow:0 0 10px var(--accent),0 0 20px #fff,0 0 30px var(--accent);transform:scale(1)}to{text-shadow:0 0 30px var(--accent),0 0 60px #fff,0 0 90px var(--accent);transform:scale(1.05)}}
 
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(0,0,0,0.9);
-      border-bottom: 1px solid var(--accent);
-      padding: 1rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-    }
-    .logo {
-      font-size: 2.2rem;
-      letter-spacing: 6px;
-      font-weight: bold;
-    }
-    .logo span { color: var(--accent); }
+    .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 5%;}
+    .hero h1{font-size:clamp(4rem,12vw,8rem);letter-spacing:15px;animation:glow 3s ease-in-out infinite alternate;}
+    @keyframes glow{from{text-shadow:0 0 30px var(--accent)}to{text-shadow:0 0 80px #fff,0 0 120px var(--accent)}}
+    .tagline{font-size:1.6rem;color:var(--gray);margin:1.5rem 0 3rem;letter-spacing:4px;}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 5%;
-    }
-    .hero h1 {
-      font-size: clamp(4rem, 12vw, 8rem);
-      letter-spacing: 15px;
-      animation: glow 3s ease-in-out infinite alternate;
-    }
-    @keyframes glow { from { text-shadow: 0 0 30px var(--accent); } to { text-shadow: 0 0 80px #fff, 0 0 120px var(--accent); } }
-    .tagline { font-size: 1.6rem; color: var(--gray); margin: 1.5rem 0 3rem; letter-spacing: 4px; }
+    /* scroll reveal */
+    .reveal{opacity:0;transform:translateY(50px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
 
-    .library {
-      padding: 100px 5% 150px;
-    }
-    .library h2 {
-      text-align: center;
-      font-size: 3rem;
-      margin-bottom: 60px;
-      color: var(--accent);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 35px;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-    .card {
-      background: var(--darkgray);
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      overflow: hidden;
-      transition: all 0.4s ease;
-      cursor: pointer;
-    }
-    .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 60px rgba(255,255,255,0.15);
-      border-color: #fff;
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      filter: grayscale(90%) contrast(1.1);
-      transition: filter 0.5s;
-    }
-    .card:hover img { filter: grayscale(20%) contrast(1.3); }
-    .card h3 {
-      padding: 1.2rem 1rem 0.5rem;
-      font-size: 1.4rem;
-      text-align: center;
-      text-transform: capitalize;
-    }
+    .library{padding:100px 5% 150px;}
+    .library h2{text-align:center;font-size:3rem;margin-bottom:60px;color:var(--accent);}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px;max-width:1400px;margin:0 auto;}
 
-    #game-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.98);
-      z-index: 2000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-    #game-modal.active { display: flex; }
-    .modal-header {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      display: flex;
-      gap: 15px;
-      z-index: 10;
-    }
-    .modal-btn {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      font-size: 1.6rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s;
-    }
-    .modal-btn:hover {
-      background: var(--accent);
-      color: #000;
-      transform: scale(1.1);
-    }
-    .modal-wrapper {
-      width: 95vw;
-      height: 90vh;
-      max-width: 1800px;
-      background: #000;
-      border: 2px solid var(--accent);
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 0 80px rgba(255,255,255,0.25);
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .card{background:var(--darkgray);border:1px solid var(--accent);border-radius:8px;overflow:hidden;transition:all 0.4s ease;cursor:pointer;opacity:0;transform:translateY(40px);}
+    .card.visible{opacity:1;transform:translateY(0);}
+    .card:hover{transform:translateY(-12px);box-shadow:0 20px 60px rgba(255,255,255,0.15);border-color:#fff;}
+    .card img{width:100%;height:180px;object-fit:cover;transition:transform 0.4s,filter 0.5s;}
+    .card:hover img{transform:scale(1.05);filter:brightness(1.15);}
+    .card h3{padding:1.2rem 1rem 0.5rem;font-size:1.2rem;text-align:center;text-transform:capitalize;}
 
-    footer {
-      text-align: center;
-      padding: 3rem;
-      border-top: 1px solid var(--accent);
-      color: var(--gray);
-      font-size: 0.95rem;
-    }
+    #game-modal{position:fixed;inset:0;background:rgba(0,0,0,0.98);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;}
+    #game-modal.active{display:flex;}
+    .modal-header{position:absolute;top:15px;right:15px;display:flex;gap:15px;z-index:10;}
+    .modal-btn{background:rgba(255,255,255,0.1);border:1px solid var(--accent);color:var(--accent);width:44px;height:44px;border-radius:50%;font-size:1.6rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+    .modal-btn:hover{background:var(--accent);color:#000;transform:scale(1.1);}
+    .modal-wrapper{width:95vw;height:90vh;max-width:1800px;background:#000;border:2px solid var(--accent);overflow:hidden;position:relative;box-shadow:0 0 80px rgba(255,255,255,0.25);}
+    iframe{width:100%;height:100%;border:none;}
 
-    #particles { position: fixed; inset: 0; z-index: -1; opacity: 0.12; pointer-events: none; }
-
-    #proxy-launcher {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 999;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid var(--accent);
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(221,221,221,0.25);
-      transition: all 0.3s ease;
-    }
-    #proxy-launcher:hover {
-      transform: translateX(-50%) scale(1.12);
-      box-shadow: 0 0 35px rgba(221,221,221,0.4);
-      background: rgba(20,20,20,0.85);
-    }
-    #proxy-launcher span {
-      font-size: 2.8rem;
-      color: var(--accent);
-      filter: grayscale(100%) brightness(1.3);
-    }
+    footer{text-align:center;padding:3rem;border-top:1px solid var(--accent);color:var(--gray);font-size:0.95rem;}
+    #particles{position:fixed;inset:0;z-index:-1;opacity:0.12;pointer-events:none;}
+    #proxy-launcher{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:999;background:rgba(0,0,0,0.7);border:1px solid var(--accent);border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 20px rgba(221,221,221,0.25);transition:all 0.3s ease;}
+    #proxy-launcher:hover{transform:translateX(-50%) scale(1.12);box-shadow:0 0 35px rgba(221,221,221,0.4);background:rgba(20,20,20,0.85);}
+    #proxy-launcher span{font-size:2.8rem;color:var(--accent);filter:grayscale(100%) brightness(1.3);}
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">KRYO<span>XI</span></div>
-  </nav>
+  <!-- Pop-under Ads -->
+  <script src="https://onsetcab.com/01/2f/ce/012fceecf6e9e3a45464326acd1fad19.js"></script>
+  <script src="https://onsetcab.com/9a/b4/9a/9ab49ae8cac7c3932255144c6f92d48e.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+    if (location.pathname !== '/home') history.replaceState(null, '', '/home');
+  </script>
+
+  <nav><div class="logo">KRYO<span>XI</span></div></nav>
 
   <section class="hero">
-    <h1>KRYOXI</h1>
-    <p class="tagline">CORE UNLOCKED • ALL NODES ACTIVE</p>
+    <h1 class="reveal">KRYOXI</h1>
+    <p class="tagline reveal">CORE UNLOCKED • ALL NODES ACTIVE</p>
   </section>
 
   <section class="library">
-    <h2>GAME NODES</h2>
+    <h2 class="reveal">GAME NODES</h2>
     <div class="grid">
-
       <div class="card" data-game="1">
         <img src="projects/1/meta/apple-touch-icon.png" alt="1">
         <h3>1</h3>
+      </div>
+
+      <div class="card" data-game="1v1lol">
+        <img src="images/1v1lol-online.jpg" alt="1v1.LOL">
+        <h3>1v1.LOL</h3>
       </div>
 
       <div class="card" data-game="1v1space">
@@ -284,6 +145,11 @@
         <h3>Big Red Button</h3>
       </div>
 
+      <div class="card" data-game="btts">
+        <img src="projects/btts/images.png" alt="Big Tower Tiny Square">
+        <h3>Big Tower Tiny Square</h3>
+      </div>
+
       <div class="card" data-game="blackknight">
         <img src="projects/blackknight/blackknight.png" alt="Black Knight">
         <h3>Black Knight</h3>
@@ -304,6 +170,11 @@
         <h3>Bloxors</h3>
       </div>
 
+      <div class="card" data-game="bob-the-robber-2">
+        <img src="images/bob-the-robber-2.png" alt="Bob the Robber 2">
+        <h3>Bob the Robber 2</h3>
+      </div>
+
       <div class="card" data-game="boxhead2play">
         <img src="projects/boxhead2play/boxhead2play.jpg" alt="Box Head">
         <h3>Box Head</h3>
@@ -312,11 +183,6 @@
       <div class="card" data-game="breakingthebank">
         <img src="projects/breakingthebank/breakingthebank.png" alt="Breaking the Bank">
         <h3>Breaking the Bank</h3>
-      </div>
-
-      <div class="card" data-game="btts">
-        <img src="projects/btts/images.png" alt="Big Tower Tiny Square">
-        <h3>Big Tower Tiny Square</h3>
       </div>
 
       <div class="card" data-game="cannon-basketball-4">
@@ -439,6 +305,11 @@
         <h3>Draw the Hill</h3>
       </div>
 
+      <div class="card" data-game="drive-mad">
+        <img src="images/drive-mad.jpg" alt="Drive Mad">
+        <h3>Drive Mad</h3>
+      </div>
+
       <div class="card" data-game="ducklife1">
         <img src="projects/ducklife1/ducklife.png" alt="Duck Life">
         <h3>Duck Life</h3>
@@ -505,8 +376,8 @@
       </div>
 
       <div class="card" data-game="game-inside">
-        <img src="projects/game-inside/img/display.png" alt="Game Inside a Game Inside a Game...">
-        <h3>Game Inside a Game Inside a Game...</h3>
+        <img src="projects/game-inside/img/display.png" alt="Game Inside a Game">
+        <h3>Game Inside a Game</h3>
       </div>
 
       <div class="card" data-game="geodash">
@@ -720,8 +591,8 @@
       </div>
 
       <div class="card" data-game="precision-client">
-        <img src="projects/precision-client/logo.png" alt="Precision Client (Eaglercraft)">
-        <h3>Precision Client (Eaglercraft)</h3>
+        <img src="projects/precision-client/logo.png" alt="Precision Client">
+        <h3>Precision Client</h3>
       </div>
 
       <div class="card" data-game="push-the-square">
@@ -765,8 +636,8 @@
       </div>
 
       <div class="card" data-game="smashkarts">
-        <img src="projects/smashkarts/images/icon-512.png" alt="Smash Carts">
-        <h3>Smash Carts</h3>
+        <img src="projects/smashkarts/images/icon-512.png" alt="Smash Karts">
+        <h3>Smash Karts</h3>
       </div>
 
       <div class="card" data-game="smokingbarrels">
@@ -780,13 +651,13 @@
       </div>
 
       <div class="card" data-game="soldier-legend">
-        <img src="projects/soldier-legend/images/splash.jpeg" alt="Soilder Legend">
-        <h3>Soilder Legend</h3>
+        <img src="projects/soldier-legend/images/splash.jpeg" alt="Soldier Legend">
+        <h3>Soldier Legend</h3>
       </div>
 
       <div class="card" data-game="solitaire">
-        <img src="projects/solitaire/screen-shot.png" alt="Solitare">
-        <h3>Solitare</h3>
+        <img src="projects/solitaire/screen-shot.png" alt="Solitaire">
+        <h3>Solitaire</h3>
       </div>
 
       <div class="card" data-game="sort-the-court">
@@ -952,102 +823,259 @@
     </div>
   </section>
 
-  <!-- Game Modal -->
+  <!-- Native Banner Ad -->
+  <script async="async" data-cfasync="false" src="https://onsetcab.com/8707bd55c0d54ec88e12f285fbcdd3a6/invoke.js"></script>
+  <div id="container-8707bd55c0d54ec88e12f285fbcdd3a6"></div>
+
   <div id="game-modal">
     <div class="modal-header">
-      <button class="modal-btn" id="close-modal" title="Close">✕</button>
-      <button class="modal-btn" id="toggle-fullscreen" title="Toggle Fullscreen">⛶</button>
+      <button class="modal-btn" id="close-modal">✕</button>
+      <button class="modal-btn" id="toggle-fullscreen">⛶</button>
     </div>
     <div class="modal-wrapper">
-      <iframe id="game-iframe" allowfullscreen allow="fullscreen"></iframe>
+      <iframe id="game-iframe" allowfullscreen allow="fullscreen" webkit-playsinline playsinline></iframe>
     </div>
   </div>
 
-  <!-- Proxy Launcher Button (🌐) -->
-  <div id="proxy-launcher" title="Open Proxy Browser" onclick="window.location.href='quiz.html'">
-    <span>🌐</span>
-  </div>
-
-  <footer>
-    KRYOXI • ALL CORE PROTOCOLS ACTIVE • 2026
-  </footer>
-
+  <div id="proxy-launcher"><span>🌐</span></div>
+  <footer>KRYOXI • ALL CORE PROTOCOLS ACTIVE • 2026</footer>
   <canvas id="particles"></canvas>
 
   <script>
-    // Particles background
-    const canvas = document.getElementById('particles');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let particlesArray = [];
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.8 + 0.4;
-        this.speedX = Math.random() * 0.4 - 0.2;
-        this.speedY = Math.random() * 0.4 - 0.2;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = 'rgba(255,255,255,0.8)';
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-    function initParticles() {
-      particlesArray = [];
-      for (let i = 0; i < 100; i++) particlesArray.push(new Particle());
-    }
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesArray.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animateParticles);
-    }
-    window.addEventListener('resize', () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    });
-    initParticles();
-    animateParticles();
+        const gameUrls = {
+      "1": "projects/1/index.html",
+      "1v1lol": "projects/1v1lol/index.html",
+      "1v1space": "projects/1v1space/index.html",
+      "2048": "projects/2048/index.html",
+      "9007199254740992": "projects/9007199254740992/index.html",
+      "achievementunlocked": "projects/achievementunlocked/index.html",
+      "adrenalinechallenge": "projects/adrenalinechallenge/index.html",
+      "among-us": "projects/among-us/index.html",
+      "avalanche": "projects/avalanche/index.html",
+      "backrooms": "projects/backrooms/index.html",
+      "basketball-stars": "projects/basketball-stars/index.html",
+      "battleforgondor": "projects/battleforgondor/index.html",
+      "bigredbutton": "projects/bigredbutton/index.html",
+      "btts": "projects/btts/index.html",
+      "blackknight": "projects/blackknight/index.html",
+      "bloonstd": "projects/bloonstd/index.html",
+      "bloonstd2": "projects/bloonstd2/index.html",
+      "bloxors": "projects/bloxors/index.html",
+      "bob-the-robber-2": "projects/bob-the-robber-2/index.html",
+      "boxhead2play": "projects/boxhead2play/index.html",
+      "breakingthebank": "projects/breakingthebank/index.html",
+      "cannon-basketball-4": "projects/cannon-basketball-4/index.html",
+      "canyondefense": "projects/canyondefense/index.html",
+      "cell-machine": "projects/cell-machine/index.html",
+      "championarcher": "projects/championarcher/index.html",
+      "chrome-dino": "projects/chrome-dino/index.html",
+      "circlo": "projects/circlo/index.html",
+      "connect3": "projects/connect3/index.html",
+      "cookie-clicker": "projects/cookie-clicker/index.html",
+      "craftmine": "projects/craftmine/index.html",
+      "creativekillchamber": "projects/creativekillchamber/index.html",
+      "csgo-clicker": "projects/csgo-clicker/index.html",
+      "ctr": "projects/ctr/index.html",
+      "ctr-holiday": "projects/ctr-holiday/index.html",
+      "ctr-tr": "projects/ctr-tr/index.html",
+      "cubefield": "projects/cubefield/index.html",
+      "cupcake2048": "projects/cupcake2048/index.html",
+      "deal-or-no-deal": "projects/deal-or-no-deal/index.html",
+      "death-run-3d": "projects/death-run-3d/index.html",
+      "defend-the-tank": "projects/defend-the-tank/index.html",
+      "doge2048": "projects/doge2048/index.html",
+      "DogeMiner": "projects/DogeMiner/index.html",
+      "doodle-jump": "projects/doodle-jump/index.html",
+      "doublewires": "projects/doublewires/index.html",
+      "draw-the-hill": "projects/draw-the-hill/index.html",
+      "drive-mad": "projects/drive-mad/index.html",
+      "ducklife1": "projects/ducklife1/index.html",
+      "ducklife2": "projects/ducklife2/index.html",
+      "ducklife3": "projects/ducklife3/index.html",
+      "edgenotfound": "projects/edgenotfound/index.html",
+      "elasticman": "projects/elasticman/index.html",
+      "endlesswar3": "projects/endlesswar3/index.html",
+      "evil-glitch": "projects/evil-glitch/index.html",
+      "exo": "projects/exo/index.html",
+      "factoryballs": "projects/factoryballs/index.html",
+      "fake-virus": "projects/fake-virus/index.html",
+      "flappy-2048": "projects/flappy-2048/index.html",
+      "flappy-bird": "projects/flappy-bird/index.html",
+      "flashtetris": "projects/flashtetris/index.html",
+      "game-inside": "projects/game-inside/index.html",
+      "geodash": "projects/geodash/index.html",
+      "getaway-shootout": "projects/getaway-shootout/index.html",
+      "gimme-the-airpod": "projects/gimme-the-airpod/index.html",
+      "glass-city": "projects/glass-city/index.html",
+      "google-snake": "projects/google-snake/index.html",
+      "grindcraft": "projects/grindcraft/index.html",
+      "hackertype": "projects/hackertype/index.html",
+      "hba": "projects/hba/index.html",
+      "helicopter": "projects/helicopter/index.html",
+      "hexempire": "projects/hexempire/index.html",
+      "HexGL": "projects/HexGL/index.html",
+      "hextris": "projects/hextris/index.html",
+      "idle-breakout": "projects/idle-breakout/index.html",
+      "idle-shark": "projects/idle-shark/index.html",
+      "impossiblequiz": "projects/impossiblequiz/index.html",
+      "interactivebuddy": "projects/interactivebuddy/index.html",
+      "just-one-boss": "projects/just-one-boss/index.html",
+      "kittencannon": "projects/kittencannon/index.html",
+      "krunker": "projects/krunker/index.html",
+      "learntofly": "projects/learntofly/index.html",
+      "mario": "projects/mario/index.html",
+      "matrixrampage": "projects/matrixrampage/index.html",
+      "meme2048": "projects/meme2048/index.html",
+      "minecraft": "projects/minecraft/index.html",
+      "minecraft-classic": "projects/minecraft-classic/index.html",
+      "minesweeper": "projects/minesweeper/index.html",
+      "miniputt": "projects/miniputt/index.html",
+      "missiles": "projects/missiles/index.html",
+      "motox3m": "projects/motox3m/index.html",
+      "motox3m-pool": "projects/motox3m-pool/index.html",
+      "motox3m-spooky": "projects/motox3m-spooky/index.html",
+      "motox3m-winter": "projects/motox3m-winter/index.html",
+      "n-gon": "projects/n-gon/index.html",
+      "ns-shaft": "projects/ns-shaft/index.html",
+      "om-bounce": "projects/om-bounce/index.html",
+      "pandemic2": "projects/pandemic2/index.html",
+      "papaspizzaria": "projects/papaspizzaria/index.html",
+      "paperio2": "projects/paperio2/index.html",
+      "papery-planes": "projects/papery-planes/index.html",
+      "particle-clicker": "projects/particle-clicker/index.html",
+      "polybranch": "projects/polybranch/index.html",
+      "portalflash": "projects/portalflash/index.html",
+      "precision-client": "projects/precision-client/index.html",
+      "push-the-square": "projects/push-the-square/index.html",
+      "push-your-luck": "projects/push-your-luck/index.html",
+      "retro-bowl": "projects/retro-bowl/index.html",
+      "rolly-vortex": "projects/rolly-vortex/index.html",
+      "rooftop-snipers": "projects/rooftop-snipers/index.html",
+      "sand-game": "projects/sand-game/index.html",
+      "slope": "projects/slope/index.html",
+      "sm64": "projects/sm64/index.html",
+      "smashkarts": "projects/smashkarts/index.html",
+      "smokingbarrels": "projects/smokingbarrels/index.html",
+      "snowbattle": "projects/snowbattle/index.html",
+      "soldier-legend": "projects/soldier-legend/index.html",
+      "solitaire": "projects/solitaire/index.html",
+      "sort-the-court": "projects/sort-the-court/index.html",
+      "soundboard": "projects/soundboard/index.html",
+      "stack": "projects/stack/index.html",
+      "stack-bump-3d": "projects/stack-bump-3d/index.html",
+      "stealingthediamond": "projects/stealingthediamond/index.html",
+      "stickwar": "projects/stickwar/index.html",
+      "stormthehouse2": "projects/stormthehouse2/index.html",
+      "superhot": "projects/superhot/index.html",
+      "swerve": "projects/swerve/index.html",
+      "tacticalassasin2": "projects/tacticalassasin2/index.html",
+      "tank-trouble-2": "projects/tank-trouble-2/index.html",
+      "tanuki-sunset": "projects/tanuki-sunset/index.html",
+      "temple-run-2": "projects/temple-run-2/index.html",
+      "thebattle": "projects/thebattle/index.html",
+      "the-final-earth": "projects/the-final-earth/index.html",
+      "theheist": "projects/theheist/index.html",
+      "there-is-no-game": "projects/there-is-no-game/index.html",
+      "thisistheonlylevel": "projects/thisistheonlylevel/index.html",
+      "tosstheturtle": "projects/tosstheturtle/index.html",
+      "tube-jumpers": "projects/tube-jumpers/index.html",
+      "tunnel-rush": "projects/tunnel-rush/index.html",
+      "tv-static": "projects/tv-static/index.html",
+      "vex3": "projects/vex3/index.html",
+      "vex4": "projects/vex4/index.html",
+      "vex5": "projects/vex5/index.html",
+      "vex6": "projects/vex6/index.html",
+      "webretro-local": "projects/webretro-local/index.html",
+      "wolf3d": "projects/wolf3d/index.html",
+      "wordle": "projects/wordle/index.html",
+      "worlds-hardest-game": "projects/worlds-hardest-game/index.html",
+      "worlds-hardest-game-2": "projects/worlds-hardest-game-2/index.html",
+      "you-are-bezos": "projects/you-are-bezos/index.html",
+    };
 
-    // Game Modal Logic
-    const gameModal = document.getElementById('game-modal');
-    const gameIframe = document.getElementById('game-iframe');
-    const closeGame = document.getElementById('close-modal');
-    const fsGameBtn = document.getElementById('toggle-fullscreen');
+    // ── MODAL ──
+    const gameModal   = document.getElementById('game-modal');
+    const gameIframe  = document.getElementById('game-iframe');
+    const closeGame   = document.getElementById('close-modal');
+    const fsBtn       = document.getElementById('toggle-fullscreen');
     const gameWrapper = gameModal.querySelector('.modal-wrapper');
 
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('click', () => {
-        const folder = card.getAttribute('data-game');
-        gameIframe.src = `projects/${folder}/`;
+        openSmartLinkAd();
+        const url = gameUrls[card.getAttribute('data-game')] || 'about:blank';
+        gameIframe.src = url;
         gameModal.classList.add('active');
         document.body.classList.add('modal-open');
       });
     });
 
     closeGame.addEventListener('click', () => {
+      openSmartLinkAd();
       gameModal.classList.remove('active');
       document.body.classList.remove('modal-open');
       gameIframe.src = '';
     });
 
-    fsGameBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        gameWrapper.requestFullscreen().catch(e => console.log(e));
-      } else {
-        document.exitFullscreen();
+    fsBtn.addEventListener('click', () => {
+      const el = gameIframe;
+      if (el.requestFullscreen) {
+        el.requestFullscreen().catch(() => {});
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else if (el.webkitEnterFullscreen) {
+        el.webkitEnterFullscreen();
       }
+      document.addEventListener('fullscreenchange', () => {
+        fsBtn.textContent = document.fullscreenElement ? '⊡' : '⛶';
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        fsBtn.textContent = document.webkitFullscreenElement ? '⊡' : '⛶';
+      });
     });
+
+    document.getElementById('proxy-launcher').addEventListener('click', () => {
+      openSmartLinkAd();
+      window.location.href = 'quiz.html';
+    });
+
+    // ── SCROLL REVEAL ──
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+            entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          }, i * 80);
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
+
+    // ── PARTICLES ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+    let pts = [];
+    class P {
+      constructor(){ this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*1.8+0.4; this.sx=Math.random()*0.4-0.2; this.sy=Math.random()*0.4-0.2; }
+      update(){ this.x+=this.sx; this.y+=this.sy; if(this.x<0||this.x>canvas.width)this.sx*=-1; if(this.y<0||this.y>canvas.height)this.sy*=-1; }
+      draw(){ ctx.fillStyle='rgba(255,255,255,0.8)'; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+    }
+    function init(){ pts=[]; for(let i=0;i<100;i++) pts.push(new P()); }
+    function animate(){ ctx.clearRect(0,0,canvas.width,canvas.height); pts.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+    window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); });
+    init(); animate();
   </script>
 </body>
 </html>
