@@ -1,0 +1,12 @@
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: interest-cohort=()
+  Content-Security-Policy: default-src * 'unsafe-inline' 'unsafe-eval' data: blob:
+
+/home
+  Cache-Control: no-store
+
+/math
+  Cache-Control: no-store
