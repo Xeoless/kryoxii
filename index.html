@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KRYOXI</title>
   <link rel="icon" type="image/png" href="images/logo.png"/>
-  <script>(function(s){s.dataset.zone='10755857',s.src='https://izcle.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+  <script src="https://quge5.com/88/tag.min.js" data-zone="221741" async data-cfasync="false"></script>
+  <script>
     function openSmartLinkAd() {
       window.open('https://onsetcab.com/pfi04829kf?key=61e561d1d8ffaba93fefd0b3793d0fdc', '_blank');
     }
@@ -187,6 +188,27 @@
       "vex7":            "games/vex7/index.html",
     };
 
+    // ── VIGNETTE AD ──
+    let vignetteLoaded = false;
+    function showVignette() {
+      return new Promise(resolve => {
+        try {
+          if (!vignetteLoaded) {
+            const s = document.createElement('script');
+            s.dataset.zone = '10755857';
+            s.src = 'https://izcle.com/vignette.min.js';
+            document.body.appendChild(s);
+            vignetteLoaded = true;
+          } else if (window.__mgvignette) {
+            window.__mgvignette.show();
+          }
+          setTimeout(resolve, 600);
+        } catch(e) {
+          resolve();
+        }
+      });
+    }
+
     // ── MODAL ──
     const gameModal   = document.getElementById('game-modal');
     const gameIframe  = document.getElementById('game-iframe');
@@ -195,9 +217,11 @@
     const gameWrapper = gameModal.querySelector('.modal-wrapper');
 
     document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', async () => {
         openSmartLinkAd();
         const url = gameUrls[card.getAttribute('data-game')] || 'about:blank';
+        // Show vignette first, then open game
+        await showVignette();
         gameIframe.src = url;
         gameModal.classList.add('active');
         document.body.classList.add('modal-open');
