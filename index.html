@@ -9,7 +9,9 @@
     function openSmartLinkAd() {
       window.open('https://onsetcab.com/pfi04829kf?key=61e561d1d8ffaba93fefd0b3793d0fdc', '_blank');
     }
-  </script>  <script src="https://onsetcab.com/1d/4d/3c/1d4d3ca2a7e5dc5a262fe43e5b6cc5cc.js"></script>
+  </script>
+  <!-- Social Bar -->
+  <script src="https://onsetcab.com/1d/4d/3c/1d4d3ca2a7e5dc5a262fe43e5b6cc5cc.js"></script>
   <style>
     :root{--bg:#000000;--text:#ffffff;--gray:#aaaaaa;--darkgray:#111111;--accent:#dddddd;}
     *{margin:0;padding:0;box-sizing:border-box;}
@@ -43,7 +45,6 @@
     .card:hover img{transform:scale(1.05);filter:brightness(1.15);}
     .card h3{padding:1.2rem 1rem 0.5rem;font-size:1.2rem;text-align:center;text-transform:capitalize;}
 
-    /* modal */
     #game-modal{position:fixed;inset:0;background:rgba(0,0,0,0.98);z-index:2000;display:none;align-items:center;justify-content:center;flex-direction:column;}
     #game-modal.active{display:flex;}
     .modal-header{position:absolute;top:15px;right:15px;display:flex;gap:15px;z-index:10;}
@@ -61,6 +62,7 @@
 </head>
 <body>
 
+  <!-- Pop-under Ads -->
   <script src="https://onsetcab.com/01/2f/ce/012fceecf6e9e3a45464326acd1fad19.js"></script>
   <script src="https://onsetcab.com/9a/b4/9a/9ab49ae8cac7c3932255144c6f92d48e.js"></script>
   <script>
@@ -147,10 +149,6 @@
     </div>
   </section>
 
-  <!-- Multiplex Ad -->
-  <div style="width:100%;max-width:1400px;margin:0 auto;padding:0 5% 40px;">
-  </div>
-
   <!-- Native Banner Ad -->
   <script async="async" data-cfasync="false" src="https://onsetcab.com/8707bd55c0d54ec88e12f285fbcdd3a6/invoke.js"></script>
   <div id="container-8707bd55c0d54ec88e12f285fbcdd3a6"></div>
@@ -170,7 +168,6 @@
   <canvas id="particles"></canvas>
 
   <script>
-    // ── GAME URLS — loads from games/ folder on your host ──
     const gameUrls = {
       "1v1lol":          "games/1v1lol/index.html",
       "2048":            "games/2048/index.html",
@@ -187,19 +184,61 @@
       "vex7":            "games/vex7/index.html",
     };
 
+    // ── MODAL ──
+    const gameModal   = document.getElementById('game-modal');
+    const gameIframe  = document.getElementById('game-iframe');
+    const closeGame   = document.getElementById('close-modal');
+    const fsBtn       = document.getElementById('toggle-fullscreen');
+    const gameWrapper = gameModal.querySelector('.modal-wrapper');
+
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', () => {
+        openSmartLinkAd();
+        const url = gameUrls[card.getAttribute('data-game')] || 'about:blank';
+        gameIframe.src = url;
+        gameModal.classList.add('active');
+        document.body.classList.add('modal-open');
+      });
+    });
+
+    closeGame.addEventListener('click', () => {
+      openSmartLinkAd();
+      gameModal.classList.remove('active');
+      document.body.classList.remove('modal-open');
+      gameIframe.src = '';
+    });
+
+    fsBtn.addEventListener('click', () => {
+      const el = gameIframe;
+      if (el.requestFullscreen) {
+        el.requestFullscreen().catch(() => {});
+      } else if (el.webkitRequestFullscreen) {
+        el.webkitRequestFullscreen();
+      } else if (el.webkitEnterFullscreen) {
+        el.webkitEnterFullscreen();
+      }
+      document.addEventListener('fullscreenchange', () => {
+        fsBtn.textContent = document.fullscreenElement ? '⊡' : '⛶';
+      });
+      document.addEventListener('webkitfullscreenchange', () => {
+        fsBtn.textContent = document.webkitFullscreenElement ? '⊡' : '⛶';
+      });
+    });
+
+    document.getElementById('proxy-launcher').addEventListener('click', () => {
+      openSmartLinkAd();
+      window.location.href = 'quiz.html';
+    });
+
     // ── SCROLL REVEAL ──
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
 
-    // Observe hero elements
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Staggered card animation
     const cardObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
